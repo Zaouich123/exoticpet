@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "/81+x/Io0SmbwZZVqSeNIote8ZLNK0bCqBIWc3wD9fc=",
+  "Source": "exoticPet.ApiService",
+  "BasePath": "_content/exoticPet.ApiService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

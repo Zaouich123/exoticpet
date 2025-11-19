@@ -1,0 +1,16 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/exoticPet.WebApp/app.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2933"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\u0022"},{"Name":"Last-Modified","Value":"Wed, 19 Nov 2025 15:51:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/exoticPet.WebApp/app.s1kim19jc4.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"s1kim19jc4"},{"Name":"integrity","Value":"sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="},{"Name":"label","Value":"_content/exoticPet.WebApp/app.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2933"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\u0022"},{"Name":"Last-Modified","Value":"Wed, 19 Nov 2025 15:51:00 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

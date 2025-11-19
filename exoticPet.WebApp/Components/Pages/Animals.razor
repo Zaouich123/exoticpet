@@ -1,0 +1,58 @@
+@page "/animals"
+@attribute [Authorize]
+@using exoticPet.WebApp.Clients
+@inject IAnimalClient AnimalClient
+
+<PageTitle>Animals</PageTitle>
+
+<h3>Animals</h3>
+
+<AuthorizeView Roles="gestionnaire">
+    <Authorized>
+        <AddAnimalForm OnAnimalAdded="LoadAnimals" />
+    </Authorized>
+    <NotAuthorized>
+        <div class="alert alert-info">You need the 'gestionnaire' role to add animals.</div>
+    </NotAuthorized>
+</AuthorizeView>
+
+<hr />
+
+@if (animals == null)
+{
+    <p>Loading animals...</p>
+}
+else if (!animals.Any())
+{
+    <p>No animals found. Add some animals to get started!</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var animal in animals)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@animal.Name</h5>
+                        <p class="card-text">Species: @animal.Species</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Animal>? animals = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAnimals();
+    }
+
+    private async Task LoadAnimals()
+    {
+        animals = await AnimalClient.GetAnimalsAsync();
+    }
+}

@@ -1,0 +1,6 @@
+@exoticPet.ApiService_HostAddress = http://localhost:5251
+
+GET {{exoticPet.ApiService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

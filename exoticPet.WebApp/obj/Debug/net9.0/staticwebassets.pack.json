@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.build.exoticPet.WebApp.props",
+      "PackagePath": "build\\exoticPet.WebApp.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.buildMultiTargeting.exoticPet.WebApp.props",
+      "PackagePath": "buildMultiTargeting\\exoticPet.WebApp.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.exoticPet.WebApp.props",
+      "PackagePath": "buildTransitive\\exoticPet.WebApp.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.exoticPet.WebApp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj/Debug/net9.0/staticwebassets/msbuild.exoticPet.WebApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

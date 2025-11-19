@@ -1,0 +1,27 @@
+meta {
+  name: Get  animals
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:17192/api/animals
+  body: json
+  auth: inherit
+}
+
+params:query {
+  : 
+}
+
+body:json {
+  {
+    "name": "Gorilla",
+    "species": "Mammal"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

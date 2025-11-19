@@ -1,0 +1,161 @@
+@using exoticPet.WebApp.Clients
+@inject IAnimalClient AnimalClient
+@inject HttpClient HttpClient
+
+<EditForm EditContext="editContext" OnValidSubmit="Submit" FormName="add-animal-form">
+    <h4>Add a New Animal</h4>
+    
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> @errorMessage
+            <button type="button" class="btn-close" @onclick="() => errorMessage = string.Empty"></button>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @successMessage
+            <button type="button" class="btn-close" @onclick="() => successMessage = string.Empty"></button>
+        </div>
+    }
+    
+    <div class="mb-3">
+        <label for="animalName" class="form-label">Name</label>
+        <InputText type="text" class="form-control" id="animalName" placeholder="Enter animal name" @bind-Value="Model!.Name" required />
+    </div>
+    <div class="mb-3">
+        <label for="animalSpecies" class="form-label">Species</label>
+        <InputText type="text" class="form-control" id="animalSpecies" placeholder="Enter species" @bind-Value="Model!.Species" required />
+    </div>
+    
+    <div>
+        <ValidationMessage For="() => Model!.Name" />
+        <ValidationMessage For="() => Model!.Species" />
+    </div>
+    
+    <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+        @if (isSubmitting)
+        {
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            <span>Adding...</span>
+        }
+        else
+        {
+            <span>Add Animal</span>
+        }
+    </button>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    private AnimalFormItem? Model { get; set; }
+
+    private EditContext? editContext;
+    private ValidationMessageStore? messageStore;
+    
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private bool isSubmitting = false;
+
+    [Parameter]
+    public EventCallback OnAnimalAdded { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Model ??= new AnimalFormItem();
+        editContext = new EditContext(Model);
+        editContext.OnValidationRequested += HandleValidationRequested;
+        messageStore = new ValidationMessageStore(editContext);
+    }
+    
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        messageStore?.Clear();
+
+        if (string.IsNullOrWhiteSpace(Model!.Name))
+        {
+            messageStore?.Add(() => Model.Name, "Name is required.");
+        }
+
+        if (Model.Name.Length > 100)
+        {
+            messageStore?.Add(() => Model.Name, "Name cannot exceed 100 characters.");
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.Species))
+        {
+            messageStore?.Add(() => Model.Species, "Species is required.");
+        }
+
+        if (Model.Species.Length > 100)
+        {
+            messageStore?.Add(() => Model.Species, "Species cannot exceed 100 characters.");
+        }
+    }
+
+    private async Task Submit()
+    {
+        if (Model is not null)
+        {
+            try
+            {
+                isSubmitting = true;
+                errorMessage = string.Empty;
+                successMessage = string.Empty;
+                
+                await AnimalClient.CreateAnimalAsync(new Animal
+                {
+                    Id = 0,
+                    Name = Model.Name,
+                    Species = Model.Species,
+                });
+                
+                successMessage = $"Animal '{Model.Name}' added successfully!";
+                Model = new AnimalFormItem();
+                editContext = new EditContext(Model);
+                editContext.OnValidationRequested += HandleValidationRequested;
+                messageStore = new ValidationMessageStore(editContext);
+                
+                await OnAnimalAdded.InvokeAsync();
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    errorMessage = "You are not authorized to add animals. Please ensure you are logged in.";
+                }
+                else if (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    errorMessage = "Access denied. You need the 'gestionnaire' role to add animals.";
+                }
+                else if (ex.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    errorMessage = "Invalid animal data. Please check your input.";
+                }
+                else
+                {
+                    errorMessage = $"HTTP Error {ex.StatusCode}: {ex.Message}";
+                }
+                
+                Console.WriteLine($"[v0] HTTP Error: {ex.StatusCode} - {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"An error occurred: {ex.Message}";
+                Console.WriteLine($"[v0] Error adding animal: {ex.Message}");
+            }
+            finally
+            {
+                isSubmitting = false;
+            }
+        }
+    }
+
+    public class AnimalFormItem
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Species { get; set; } = string.Empty;
+    }
+}

@@ -1,0 +1,362 @@
+{
+  "Version": 1,
+  "Hash": "BJY7E7PLTUmw8LNuF7zAh2x7GTIuPLusEj40q44jec0=",
+  "Source": "exoticPet.WebApp",
+  "BasePath": "_content/exoticPet.WebApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "exoticPet.WebApp/wwwroot",
+      "Source": "exoticPet.WebApp",
+      "ContentRoot": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/",
+      "BasePath": "_content/exoticPet.WebApp",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/x85zba71l2-s1kim19jc4.gz",
+      "SourceId": "exoticPet.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/",
+      "BasePath": "_content/exoticPet.WebApp",
+      "RelativePath": "app#[.{fingerprint=s1kim19jc4}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "eklnk87kcd",
+      "Integrity": "7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css"
+    },
+    {
+      "Identity": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css",
+      "SourceId": "exoticPet.WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/",
+      "BasePath": "_content/exoticPet.WebApp",
+      "RelativePath": "app#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "s1kim19jc4",
+      "Integrity": "AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/app.css"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "app.css",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/x85zba71l2-s1kim19jc4.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001106194690"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "903"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="
+        }
+      ]
+    },
+    {
+      "Route": "app.css",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2933"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="
+        }
+      ]
+    },
+    {
+      "Route": "app.css.gz",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/x85zba71l2-s1kim19jc4.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "903"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg="
+        }
+      ]
+    },
+    {
+      "Route": "app.s1kim19jc4.css",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/x85zba71l2-s1kim19jc4.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001106194690"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "903"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s1kim19jc4"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="
+        }
+      ]
+    },
+    {
+      "Route": "app.s1kim19jc4.css",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/wwwroot/app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2933"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s1kim19jc4"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AABiNkUv0DnT9AsP0vrAENvXD/UHmGWG6EqTppFX8Ts="
+        }
+      ]
+    },
+    {
+      "Route": "app.s1kim19jc4.css.gz",
+      "AssetFile": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/obj/Debug/net9.0/compressed/x85zba71l2-s1kim19jc4.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "903"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 15:51:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s1kim19jc4"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7vAsx1bwIy1CnZ177XArapAx5mbKIEU7Xg+a71ocdSg="
+        }
+      ]
+    }
+  ]
+}

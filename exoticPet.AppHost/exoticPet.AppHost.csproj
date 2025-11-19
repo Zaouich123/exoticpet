@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.1" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>09950e97-5831-41d7-837d-1cd49ed785ba</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.1" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.5.1" />
+    <!-- Removed Keycloak package - using manual container instead -->
+    <ProjectReference Include="../exoticPet.ApiService/exoticPet.ApiService.csproj" />
+    <ProjectReference Include="../exoticPet.WebApp/exoticPet.WebApp.csproj" />
+  </ItemGroup>
+
+</Project>
