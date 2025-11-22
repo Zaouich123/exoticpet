@@ -15,5 +15,5 @@ public class exoticPet_ApiService : global::Aspire.Hosting.IProjectMetadata
     /// <summary>
     /// The path to the exoticPet_ApiService project.
     /// </summary>
-    public string ProjectPath => """/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ApiService/exoticPet.ApiService.csproj""";
+    public string ProjectPath => """C:\Users\etienne\exoticPet2\exoticPet.ApiService\exoticPet.ApiService.csproj""";
 }

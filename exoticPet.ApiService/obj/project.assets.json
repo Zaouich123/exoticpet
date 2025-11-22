@@ -5405,33 +5405,32 @@
     ]
   },
   "packageFolders": {
-    "/home/dys/.nuget/packages/": {}
+    "C:\\Users\\etienne\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ApiService/exoticPet.ApiService.csproj",
+      "projectUniqueName": "C:\\Users\\etienne\\exoticPet2\\exoticPet.ApiService\\exoticPet.ApiService.csproj",
       "projectName": "exoticPet.ApiService",
-      "projectPath": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ApiService/exoticPet.ApiService.csproj",
-      "packagesPath": "/home/dys/.nuget/packages/",
-      "outputPath": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ApiService/obj/",
+      "projectPath": "C:\\Users\\etienne\\exoticPet2\\exoticPet.ApiService\\exoticPet.ApiService.csproj",
+      "packagesPath": "C:\\Users\\etienne\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\etienne\\exoticPet2\\exoticPet.ApiService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/dys/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\etienne\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
-        "/usr/lib64/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ServiceDefaults/exoticPet.ServiceDefaults.csproj": {
-              "projectPath": "/home/dys/Desktop/dotnet-course/lastvers/exoticPet.ServiceDefaults/exoticPet.ServiceDefaults.csproj"
+            "C:\\Users\\etienne\\exoticPet2\\exoticPet.ServiceDefaults\\exoticPet.ServiceDefaults.csproj": {
+              "projectPath": "C:\\Users\\etienne\\exoticPet2\\exoticPet.ServiceDefaults\\exoticPet.ServiceDefaults.csproj"
             }
           }
         }
@@ -5446,7 +5445,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
@@ -5502,7 +5501,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -12,8 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add ServiceDefaults for Aspire integration
 builder.AddServiceDefaults();
 
-// Add Razor Components
-builder.Services.AddRazorComponents();
+// Add Razor Components with interactive server rendering
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 // Add HttpContextAccessor for token handling
 builder.Services.AddHttpContextAccessor();
@@ -53,7 +54,7 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("email");
     options.Scope.Add("api");
     options.Scope.Add("offline_access");
-    
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         NameClaimType = "name",
@@ -138,6 +139,12 @@ builder.Services.AddHttpClient<IAnimalClient, AnimalClient>(client =>
 })
 .AddHttpMessageHandler<exoticPet.WebApp.Clients.TokenHandler>();
 
+builder.Services.AddHttpClient<IEnvironmentClient, EnvironmentClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5251");
+})
+.AddHttpMessageHandler<exoticPet.WebApp.Clients.TokenHandler>();
+
 var app = builder.Build();
 
 // Map default Aspire endpoints
@@ -157,7 +164,8 @@ app.UseAntiforgery();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode();
 
 app.MapGet("/authentication/login", (HttpContext context, string? returnUrl) => 
 {

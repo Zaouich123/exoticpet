@@ -35,7 +35,14 @@ else
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@animal.Name</h5>
-                        <p class="card-text">Species: @animal.Species</p>
+                        <p class="card-text mb-1"><strong>Species:</strong> @animal.Species</p>
+                        <p class="card-text mb-1"><strong>Environment:</strong> @(animal.Environment?.Name ?? "N/A")</p>
+                        <p class="card-text mb-1"><strong>Price:</strong> @animal.Price.ToString("0.00") €</p>
+                        <p class="card-text"><small>@animal.Specifications</small></p>
+                        <button class="btn btn-success btn-sm mt-2" @onclick="() => Purchase(animal.Id)" disabled="@isPurchasing">
+                            @if (isPurchasing) { <span class="spinner-border spinner-border-sm me-1" role="status"></span> }
+                            Buy
+                        </button>
                     </div>
                 </div>
             </div>
@@ -45,6 +52,7 @@ else
 
 @code {
     private List<Animal>? animals = null;
+    private bool isPurchasing;
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,5 +62,22 @@ else
     private async Task LoadAnimals()
     {
         animals = await AnimalClient.GetAnimalsAsync();
+    }
+
+    private async Task Purchase(int animalId)
+    {
+        isPurchasing = true;
+        try
+        {
+            var ok = await AnimalClient.PurchaseAnimalAsync(animalId);
+            if (ok)
+            {
+                animals = animals?.Where(a => a.Id != animalId).ToList();
+            }
+        }
+        finally
+        {
+            isPurchasing = false;
+        }
     }
 }

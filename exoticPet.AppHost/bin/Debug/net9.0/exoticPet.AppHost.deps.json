@@ -8,16 +8,16 @@
     ".NETCoreApp,Version=v9.0": {
       "exoticPet.AppHost/1.0.0": {
         "dependencies": {
-          "Aspire.Dashboard.Sdk.linux-x64": "9.5.1",
+          "Aspire.Dashboard.Sdk.win-x64": "9.5.1",
           "Aspire.Hosting.AppHost": "9.5.1",
-          "Aspire.Hosting.Orchestration.linux-x64": "9.5.1",
+          "Aspire.Hosting.Orchestration.win-x64": "9.5.1",
           "Aspire.Hosting.PostgreSQL": "9.5.1"
         },
         "runtime": {
           "exoticPet.AppHost.dll": {}
         }
       },
-      "Aspire.Dashboard.Sdk.linux-x64/9.5.1": {},
+      "Aspire.Dashboard.Sdk.win-x64/9.5.1": {},
       "Aspire.Hosting/9.5.1": {
         "dependencies": {
           "AspNetCore.HealthChecks.Uris": "9.0.0",
@@ -126,7 +126,7 @@
           }
         }
       },
-      "Aspire.Hosting.Orchestration.linux-x64/9.5.1": {},
+      "Aspire.Hosting.Orchestration.win-x64/9.5.1": {},
       "Aspire.Hosting.PostgreSQL/9.5.1": {
         "dependencies": {
           "AspNetCore.HealthChecks.NpgSql": "9.0.0",
@@ -969,12 +969,6 @@
           }
         },
         "runtimeTargets": {
-          "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.Messages.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.925.41916"
-          },
           "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll": {
             "rid": "win",
             "assetType": "runtime",
@@ -1008,12 +1002,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Aspire.Dashboard.Sdk.linux-x64/9.5.1": {
+    "Aspire.Dashboard.Sdk.win-x64/9.5.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0rDfhsleqfvHkWWj6WhFzvC3UWebGqIpjFQFBqN2TW05giMsuxPDOjFZgOr2C5mCdRfShD4t4+vWpxXm3dHEdA==",
-      "path": "aspire.dashboard.sdk.linux-x64/9.5.1",
-      "hashPath": "aspire.dashboard.sdk.linux-x64.9.5.1.nupkg.sha512"
+      "sha512": "sha512-Zs68NyitFQBZ7QttAxvFS5nrCy/KL1uuCi4aBr96vGr3KhXMue05rU8wMIwhwPLj49nxSE8mk1yJ12KC/Vk8mw==",
+      "path": "aspire.dashboard.sdk.win-x64/9.5.1",
+      "hashPath": "aspire.dashboard.sdk.win-x64.9.5.1.nupkg.sha512"
     },
     "Aspire.Hosting/9.5.1": {
       "type": "package",
@@ -1029,12 +1023,12 @@
       "path": "aspire.hosting.apphost/9.5.1",
       "hashPath": "aspire.hosting.apphost.9.5.1.nupkg.sha512"
     },
-    "Aspire.Hosting.Orchestration.linux-x64/9.5.1": {
+    "Aspire.Hosting.Orchestration.win-x64/9.5.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cEbQFmKUDI4tA+XNTKM1JTDvBGagbYpIJYfA94UYCkQp0NRjMVVGXaEX5+T+zs5/LPX66L+nKgNpBnuaW7Sp4A==",
-      "path": "aspire.hosting.orchestration.linux-x64/9.5.1",
-      "hashPath": "aspire.hosting.orchestration.linux-x64.9.5.1.nupkg.sha512"
+      "sha512": "sha512-PeA/eXDehbwoIGDG8cPXsje4pViGCO2ltHXCZqRaSmyF51pjUsHjs3fN0kFXF0sN10PznjaUyoiRFNtQX3/kLQ==",
+      "path": "aspire.hosting.orchestration.win-x64/9.5.1",
+      "hashPath": "aspire.hosting.orchestration.win-x64.9.5.1.nupkg.sha512"
     },
     "Aspire.Hosting.PostgreSQL/9.5.1": {
       "type": "package",

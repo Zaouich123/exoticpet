@@ -15,5 +15,5 @@ public class exoticPet_WebApp : global::Aspire.Hosting.IProjectMetadata
     /// <summary>
     /// The path to the exoticPet_WebApp project.
     /// </summary>
-    public string ProjectPath => """/home/dys/Desktop/dotnet-course/lastvers/exoticPet.WebApp/exoticPet.WebApp.csproj""";
+    public string ProjectPath => """C:\Users\etienne\exoticPet2\exoticPet.WebApp\exoticPet.WebApp.csproj""";
 }

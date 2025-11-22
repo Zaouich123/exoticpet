@@ -24,3 +24,16 @@
 /home/dys/Desktop/dotnet-course/lastvers/exoticPet.ServiceDefaults/obj/Debug/net9.0/refint/exoticPet.ServiceDefaults.dll
 /home/dys/Desktop/dotnet-course/lastvers/exoticPet.ServiceDefaults/obj/Debug/net9.0/exoticPet.ServiceDefaults.pdb
 /home/dys/Desktop/dotnet-course/lastvers/exoticPet.ServiceDefaults/obj/Debug/net9.0/ref/exoticPet.ServiceDefaults.dll
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\bin\Debug\net9.0\exoticPet.ServiceDefaults.deps.json
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\bin\Debug\net9.0\exoticPet.ServiceDefaults.dll
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\bin\Debug\net9.0\exoticPet.ServiceDefaults.pdb
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.csproj.AssemblyReference.cache
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.AssemblyInfoInputs.cache
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.AssemblyInfo.cs
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.csproj.CoreCompileInputs.cache
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.sourcelink.json
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.dll
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\refint\exoticPet.ServiceDefaults.dll
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\exoticPet.ServiceDefaults.pdb
+C:\Users\etienne\exoticPet2\exoticPet.ServiceDefaults\obj\Debug\net9.0\ref\exoticPet.ServiceDefaults.dll

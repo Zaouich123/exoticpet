@@ -16,7 +16,7 @@ var keycloak = builder.AddContainer("keycloak-service", "quay.io/keycloak/keyclo
     .WithEnvironment("KC_DB", "postgres")
     .WithEnvironment("KC_DB_URL", "jdbc:postgresql://postgres:5432/keycloak")
     .WithEnvironment("KC_DB_USERNAME", "postgres")
-    .WithEnvironment("KC_DB_PASSWORD", "{*zAXeDcJFM+p9cGEfpRur")
+    .WithEnvironment("KC_DB_PASSWORD", "zAwE6DBy~)SJZS-770)yzF")
     .WithArgs("start-dev")
     .WithLifetime(ContainerLifetime.Persistent);
 

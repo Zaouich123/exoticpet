@@ -28,19 +28,14 @@ public class AnimalClient : IAnimalClient
         try
         {
             Console.WriteLine($"[v0] Attempting to POST animal to {_httpClient.BaseAddress}/api/animals");
-            Console.WriteLine($"[v0] Animal data: Name={animal.Name}, Species={animal.Species}");
+            Console.WriteLine($"[v0] Animal data: Name={animal.Name}, Species={animal.Species}, EnvId={animal.EnvironmentId}, Price={animal.Price}");
             
             var response = await _httpClient.PostAsJsonAsync("/api/animals", animal);
-            
-            if (!response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"[v0] POST failed with status {response.StatusCode}: {content}");
-                throw new HttpRequestException($"Failed to create animal: {response.StatusCode}", null, response.StatusCode);
-            }
-            
+            response.EnsureSuccessStatusCode();
+
             Console.WriteLine($"[v0] Animal created successfully");
-            return await response.Content.ReadFromJsonAsync<Animal>() ?? throw new Exception("Failed to deserialize animal response");
+            return await response.Content.ReadFromJsonAsync<Animal>()
+                   ?? throw new InvalidOperationException("Invalid response from server");
         }
         catch (HttpRequestException ex)
         {
@@ -51,6 +46,22 @@ public class AnimalClient : IAnimalClient
         {
             Console.WriteLine($"[v0] Error creating animal: {ex.Message}");
             throw;
+        }
+    }
+
+    public async Task<bool> PurchaseAnimalAsync(int animalId)
+    {
+        try
+        {
+            Console.WriteLine($"[v0] Attempting to purchase animal {animalId}");
+            var response = await _httpClient.PostAsync($"/api/animals/{animalId}/purchase", content: null);
+            response.EnsureSuccessStatusCode();
+            return true;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"[v0] Purchase HTTP Error: {ex.StatusCode} - {ex.Message}");
+            return false;
         }
     }
 }

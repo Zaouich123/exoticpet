@@ -17,5 +17,5 @@ public class exoticPet_AppHost
     /// <summary>
     /// The path to the Aspire Host project.
     /// </summary>
-    public static string ProjectPath => """/home/dys/Desktop/dotnet-course/lastvers/exoticPet.AppHost""";
+    public static string ProjectPath => """C:\Users\etienne\exoticPet2\exoticPet.AppHost""";
 }

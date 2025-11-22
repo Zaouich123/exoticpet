@@ -1,6 +1,7 @@
 @using exoticPet.WebApp.Clients
 @inject IAnimalClient AnimalClient
 @inject HttpClient HttpClient
+@inject IEnvironmentClient EnvironmentClient
 
 <EditForm EditContext="editContext" OnValidSubmit="Submit" FormName="add-animal-form">
     <h4>Add a New Animal</h4>
@@ -24,15 +25,33 @@
     <div class="mb-3">
         <label for="animalName" class="form-label">Name</label>
         <InputText type="text" class="form-control" id="animalName" placeholder="Enter animal name" @bind-Value="Model!.Name" required />
+        <ValidationMessage For="() => Model!.Name" />
     </div>
     <div class="mb-3">
         <label for="animalSpecies" class="form-label">Species</label>
         <InputText type="text" class="form-control" id="animalSpecies" placeholder="Enter species" @bind-Value="Model!.Species" required />
-    </div>
-    
-    <div>
-        <ValidationMessage For="() => Model!.Name" />
         <ValidationMessage For="() => Model!.Species" />
+    </div>
+    <div class="mb-3">
+        <label for="animalEnv" class="form-label">Environment</label>
+        <InputSelect class="form-select" id="animalEnv" @bind-Value="Model!.EnvironmentId">
+            <option value="">-- Select environment --</option>
+            @foreach (var env in environments)
+            {
+                <option value="@env.Id">@env.Name</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="() => Model!.EnvironmentId" />
+    </div>
+    <div class="mb-3">
+        <label for="animalPrice" class="form-label">Price (€)</label>
+        <InputNumber @bind-Value="Model!.Price" class="form-control" id="animalPrice" step="0.01" min="0" />
+        <ValidationMessage For="() => Model!.Price" />
+    </div>
+    <div class="mb-3">
+        <label for="animalSpecs" class="form-label">Specifications</label>
+        <InputTextArea class="form-control" id="animalSpecs" placeholder="Describe the animal, temperament, care..." @bind-Value="Model!.Specifications" rows="4" />
+        <ValidationMessage For="() => Model!.Specifications" />
     </div>
     
     <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
@@ -54,6 +73,7 @@
 
     private EditContext? editContext;
     private ValidationMessageStore? messageStore;
+    private List<Environnement> environments = new();
     
     private string errorMessage = string.Empty;
     private string successMessage = string.Empty;
@@ -62,12 +82,13 @@
     [Parameter]
     public EventCallback OnAnimalAdded { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         Model ??= new AnimalFormItem();
         editContext = new EditContext(Model);
         editContext.OnValidationRequested += HandleValidationRequested;
         messageStore = new ValidationMessageStore(editContext);
+        environments = await EnvironmentClient.GetEnvironmentsAsync();
     }
     
     private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
@@ -93,6 +114,25 @@
         {
             messageStore?.Add(() => Model.Species, "Species cannot exceed 100 characters.");
         }
+
+        if (!Model.EnvironmentId.HasValue || Model.EnvironmentId.Value <= 0)
+        {
+            messageStore?.Add(() => Model.EnvironmentId, "Environment is required.");
+        }
+
+        if (Model.Price <= 0)
+        {
+            messageStore?.Add(() => Model.Price, "Price must be greater than zero.");
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.Specifications))
+        {
+            messageStore?.Add(() => Model.Specifications, "Specifications are required.");
+        }
+        else if (Model.Specifications.Length > 2000)
+        {
+            messageStore?.Add(() => Model.Specifications, "Specifications cannot exceed 2000 characters.");
+        }
     }
 
     private async Task Submit()
@@ -110,13 +150,13 @@
                     Id = 0,
                     Name = Model.Name,
                     Species = Model.Species,
+                    Specifications = Model.Specifications,
+                    Price = Model.Price,
+                    EnvironmentId = Model.EnvironmentId ?? 0
                 });
                 
                 successMessage = $"Animal '{Model.Name}' added successfully!";
-                Model = new AnimalFormItem();
-                editContext = new EditContext(Model);
-                editContext.OnValidationRequested += HandleValidationRequested;
-                messageStore = new ValidationMessageStore(editContext);
+                await ResetForm();
                 
                 await OnAnimalAdded.InvokeAsync();
             }
@@ -157,5 +197,17 @@
     {
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
+        public string Specifications { get; set; } = string.Empty;
+        public decimal Price { get; set; } = 0;
+        public int? EnvironmentId { get; set; }
+    }
+
+    private async Task ResetForm()
+    {
+        Model = new AnimalFormItem();
+        editContext = new EditContext(Model);
+        editContext.OnValidationRequested += HandleValidationRequested;
+        messageStore = new ValidationMessageStore(editContext);
+        environments = await EnvironmentClient.GetEnvironmentsAsync();
     }
 }

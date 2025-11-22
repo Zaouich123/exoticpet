@@ -74,19 +74,34 @@ This application uses Keycloak for authentication and authorization. Follow thes
 8. Disable **Temporary** toggle
 9. Click **Set Password**
 
-### 7. Assign Roles to User
+### 7. Create Realm Roles
 
-1. Stay in the user details page
-2. Go to **Role mapping** tab
-3. Go to **Assign role**
-4. If needed, create a realm role `gestionnaire`:
-   - Go to **Realm roles** in left menu
-   - Click **Create role**
-   - Name: `gestionnaire`
-   - Click **Create**
-5. Back to user role mapping, assign the `gestionnaire` role
+Create both roles used by the app:
 
-### 8. Update Application Configuration
+- `gestionnaire` (can add/manage animals)
+- `viewer` (read-only)
+
+Steps in the admin console:
+
+1. Go to **Realm roles** in the left menu
+2. Click **Create role**
+3. Enter `gestionnaire`, optional description "Can add and manage animals", then **Save**
+4. Click **Create role** again, enter `viewer`, description "Read-only user", then **Save**
+
+### 8. Assign Roles to Users
+
+1. Go to **Users** and open the user (e.g., `testuser`)
+2. Open the **Role mapping** tab
+3. Click **Assign role** and add:
+   - `gestionnaire` for users who can create animals
+   - `viewer` for read-only users
+
+Recommended demo users that match the UI hints:
+
+- `user1` / `pass` with role `gestionnaire`
+- `user2` / `pass` with role `viewer`
+
+### 9. Update Application Configuration
 
 Make sure your `appsettings.json` files have the correct values:
 
@@ -113,6 +128,25 @@ Make sure your `appsettings.json` files have the correct values:
   }
 }
 \`\`\`
+
+### (Optional) Create Roles via REST
+
+If you prefer commands instead of the UI (requires `curl` and `jq`):
+
+```bash
+# Get admin token
+TOKEN=$(curl -s -X POST "http://localhost:8090/realms/master/protocol/openid-connect/token" \
+  --data "username=admin" --data "password=admin" \
+  --data "grant_type=password" --data "client_id=admin-cli" | jq -r .access_token)
+
+# Create roles
+for ROLE in gestionnaire viewer; do
+  curl -s -X POST "http://localhost:8090/admin/realms/exoticpet/roles" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "{\"name\":\"$ROLE\"}"
+done
+```
 
 ## Testing the Setup
 
