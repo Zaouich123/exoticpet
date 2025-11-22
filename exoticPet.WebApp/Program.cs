@@ -39,7 +39,8 @@ builder.Services.AddAuthentication(options =>
     options.RequireHttpsMetadata = false;
     options.ResponseType = OpenIdConnectResponseType.Code;
     options.SaveTokens = true;
-    options.GetClaimsFromUserInfoEndpoint = true;
+    // Avoid UserInfo call to prevent subject mismatch issues
+    options.GetClaimsFromUserInfoEndpoint = false;
     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     
     options.CallbackPath = "/signin-oidc";
@@ -57,13 +58,14 @@ builder.Services.AddAuthentication(options =>
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        NameClaimType = "name",
+        NameClaimType = "preferred_username",
         RoleClaimType = "role",
         ValidateIssuer = true,
         ValidateAudience = false,
     };
     
     options.ClaimActions.MapUniqueJsonKey("name", "name");
+    options.ClaimActions.MapUniqueJsonKey("preferred_username", "preferred_username");
     options.ClaimActions.MapUniqueJsonKey("email", "email");
     options.ClaimActions.MapUniqueJsonKey("sub", "sub");
     
@@ -140,6 +142,18 @@ builder.Services.AddHttpClient<IAnimalClient, AnimalClient>(client =>
 .AddHttpMessageHandler<exoticPet.WebApp.Clients.TokenHandler>();
 
 builder.Services.AddHttpClient<IEnvironmentClient, EnvironmentClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5251");
+})
+.AddHttpMessageHandler<exoticPet.WebApp.Clients.TokenHandler>();
+
+builder.Services.AddHttpClient<IProfileClient, ProfileClient>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5251");
+})
+.AddHttpMessageHandler<exoticPet.WebApp.Clients.TokenHandler>();
+
+builder.Services.AddHttpClient<IAdminClient, AdminClient>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:5251");
 })

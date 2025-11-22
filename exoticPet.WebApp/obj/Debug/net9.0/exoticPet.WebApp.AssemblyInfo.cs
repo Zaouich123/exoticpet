@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exoticPet.WebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28547401bfa5c746d4e0c96773dfb148fbcfbf29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad6392efa7813567821689c20cdb9eecaef2381e")]
 [assembly: System.Reflection.AssemblyProductAttribute("exoticPet.WebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exoticPet.WebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

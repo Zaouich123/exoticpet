@@ -1,10 +1,10 @@
 @inherits LayoutComponentBase
 
-<div class="container-fluid p-0">
+<div class="container-fluid p-0 layout-shell fade-in">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold" href="/">
-                <span class="brand-icon">🦎</span> Exotic Pet Manager
+                <span class="brand-icon">🐾</span> Exotic Pet Manager
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -16,6 +16,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/animals">Animals</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">Profil</a>
+                            </li>
+                            <AuthorizeView Roles="gestionnaire">
+                                <Authorized Context="adminCtx">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/admin">Admin</a>
+                                    </li>
+                                </Authorized>
+                            </AuthorizeView>
                         </Authorized>
                     </AuthorizeView>
                 </ul>
@@ -23,10 +33,14 @@
                     <AuthorizeView>
                         <Authorized>
                             <span class="navbar-text me-3 text-light">
-                                <span class="user-icon">👤</span> @context.User.Identity?.Name
+                                @{
+                                    var displayName = context.User.FindFirst("preferred_username")?.Value
+                                                     ?? context.User.Identity?.Name
+                                                     ?? "User";
+                                }
+                                <span class="user-icon">👤</span> @displayName
                             </span>
-                            <form action="/authentication/logout" method="post">
-                                <AntiforgeryToken />
+                            <form action="/authentication/logout" method="get">
                                 <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
                             </form>
                         </Authorized>

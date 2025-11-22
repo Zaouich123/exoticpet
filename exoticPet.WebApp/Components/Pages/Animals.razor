@@ -5,18 +5,13 @@
 
 <PageTitle>Animals</PageTitle>
 
-<h3>Animals</h3>
-
-<AuthorizeView Roles="gestionnaire">
-    <Authorized>
-        <AddAnimalForm OnAnimalAdded="LoadAnimals" />
-    </Authorized>
-    <NotAuthorized>
-        <div class="alert alert-info">You need the 'gestionnaire' role to add animals.</div>
-    </NotAuthorized>
-</AuthorizeView>
-
-<hr />
+<div class="page-wrapper fade-in">
+<div class="page-header glass">
+    <div>
+        <h3 class="mb-1">Animals</h3>
+        <p class="text-muted mb-0">Browse and buy the most unique companions</p>
+    </div>
+</div>
 
 @if (animals == null)
 {
@@ -28,21 +23,50 @@ else if (!animals.Any())
 }
 else
 {
-    <div class="row">
+    <div class="row g-4 fade-in">
         @foreach (var animal in animals)
         {
-            <div class="col-md-4 mb-3">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card animal-card card-soft h-100">
                     <div class="card-body">
-                        <h5 class="card-title">@animal.Name</h5>
-                        <p class="card-text mb-1"><strong>Species:</strong> @animal.Species</p>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="card-title mb-1">@animal.Name</h5>
+                                <span class="badge bg-primary-subtle text-primary">Species: @animal.Species</span>
+                            </div>
+                            <span class="price-badge">@animal.Price.ToString("0.00") €</span>
+                        </div>
                         <p class="card-text mb-1"><strong>Environment:</strong> @(animal.Environment?.Name ?? "N/A")</p>
-                        <p class="card-text mb-1"><strong>Price:</strong> @animal.Price.ToString("0.00") €</p>
                         <p class="card-text"><small>@animal.Specifications</small></p>
-                        <button class="btn btn-success btn-sm mt-2" @onclick="() => Purchase(animal.Id)" disabled="@isPurchasing">
-                            @if (isPurchasing) { <span class="spinner-border spinner-border-sm me-1" role="status"></span> }
-                            Buy
-                        </button>
+
+                        @if (selectedAnimalId == animal.Id)
+                        {
+                            <div class="mt-2">
+                                <div class="mb-2">
+                                    <label class="form-label">Nom complet</label>
+                                    <InputText class="form-control form-control-sm" @bind-Value="purchaseModel.FullName" />
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Adresse de livraison</label>
+                                    <InputTextArea class="form-control form-control-sm" rows="2" @bind-Value="purchaseModel.Address" />
+                                </div>
+                                @if (!string.IsNullOrEmpty(purchaseError))
+                                {
+                                    <div class="text-danger small">@purchaseError</div>
+                                }
+                                <button class="btn btn-success btn-sm me-2" @onclick="ConfirmPurchase" disabled="@isPurchasing">
+                                    @if (isPurchasing) { <span class="spinner-border spinner-border-sm me-1" role="status"></span> }
+                                    Confirmer
+                                </button>
+                                <button class="btn btn-secondary btn-sm" @onclick="() => selectedAnimalId = null">Annuler</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <button class="btn btn-success btn-sm mt-2" @onclick="() => Purchase(animal.Id)" disabled="@isPurchasing">
+                                Buy
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
@@ -53,6 +77,9 @@ else
 @code {
     private List<Animal>? animals = null;
     private bool isPurchasing;
+    private int? selectedAnimalId = null;
+    private PurchaseRequest purchaseModel = new();
+    private string? purchaseError;
 
     protected override async Task OnInitializedAsync()
     {
@@ -64,16 +91,32 @@ else
         animals = await AnimalClient.GetAnimalsAsync();
     }
 
-    private async Task Purchase(int animalId)
+    private Task Purchase(int animalId)
     {
+        selectedAnimalId = animalId;
+        purchaseModel = new PurchaseRequest();
+        purchaseError = null;
+        return Task.CompletedTask;
+    }
+
+    private async Task ConfirmPurchase()
+    {
+        if (selectedAnimalId == null) return;
         isPurchasing = true;
+        purchaseError = null;
         try
         {
-            var ok = await AnimalClient.PurchaseAnimalAsync(animalId);
+            var ok = await AnimalClient.PurchaseAnimalAsync(selectedAnimalId.Value, purchaseModel);
             if (ok)
             {
-                animals = animals?.Where(a => a.Id != animalId).ToList();
+                animals = animals?.Where(a => a.Id != selectedAnimalId.Value).ToList();
+                selectedAnimalId = null;
+                purchaseModel = new PurchaseRequest();
             }
+        }
+        catch (Exception ex)
+        {
+            purchaseError = ex.Message;
         }
         finally
         {
@@ -81,3 +124,45 @@ else
         }
     }
 }
+
+<style>
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f2f6ff 0%, #eef9ff 100%);
+}
+
+.glass {
+    backdrop-filter: blur(6px);
+}
+
+.animal-card {
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 0.6rem 1.2rem rgba(0,0,0,0.06);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.animal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.08);
+}
+
+.price-badge {
+    background: #1f8a70;
+    color: #fff;
+    padding: 0.35rem 0.6rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.card-text small {
+    white-space: pre-wrap;
+}
+</style>
+</div>

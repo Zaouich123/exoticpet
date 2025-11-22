@@ -1,0 +1,102 @@
+@page "/admin"
+@attribute [Authorize(Roles = "gestionnaire")]
+@inject IAdminClient AdminClient
+
+<PageTitle>Administration</PageTitle>
+
+<div class="page-wrapper fade-in">
+<div class="page-header glass">
+    <div>
+        <h3>Administration</h3>
+        <p class="text-muted mb-0">Manage animals and customer orders</p>
+    </div>
+</div>
+
+<div class="row g-4 fade-in">
+    <div class="col-lg-6">
+        <div class="card card-soft">
+            <div class="card-body">
+                <h5 class="card-title">Ajouter un animal</h5>
+                <AddAnimalForm OnAnimalAdded="Reload" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card card-soft">
+            <div class="card-body">
+                <h5 class="card-title">Commandes</h5>
+                @if (purchases == null)
+                {
+                    <p>Chargement...</p>
+                }
+                else if (!purchases.Any())
+                {
+                    <p>Aucune commande.</p>
+                }
+                else
+                {
+                    <div class="list-group">
+                        @foreach (var p in purchases)
+                        {
+                            <div class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="me-3">
+                                    <div><strong>@p.Animal.Name</strong> (@p.Animal.Species) - @p.Animal.Price.ToString("0.00") €</div>
+                                    <div class="small text-muted">@p.CreatedAt.ToLocalTime()</div>
+                                    <div class="small">Env: @p.Animal.Environment</div>
+                                    <div class="small">Client: @p.FullName (@p.Buyer.Username)</div>
+                                    <div class="small">Adresse: @p.Address</div>
+                                </div>
+                                <button class="btn btn-danger btn-sm" @onclick="() => Cancel(p.Id)" disabled="@isCancelling">
+                                    @if (isCancelling) { <span class="spinner-border spinner-border-sm me-1" role="status"></span> }
+                                    Annuler
+                                </button>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+</style>
+</div>
+
+@code {
+    private List<AdminPurchase>? purchases;
+    private bool isCancelling;
+
+    protected override async Task OnInitializedAsync()
+    {
+        purchases = await AdminClient.GetPurchasesAsync();
+    }
+
+    private async Task Reload()
+    {
+        purchases = await AdminClient.GetPurchasesAsync();
+    }
+
+    private async Task Cancel(int id)
+    {
+        isCancelling = true;
+        try
+        {
+            var ok = await AdminClient.CancelPurchaseAsync(id);
+            if (ok)
+            {
+                purchases = purchases?.Where(p => p.Id != id).ToList();
+            }
+        }
+        finally
+        {
+            isCancelling = false;
+        }
+    }
+}

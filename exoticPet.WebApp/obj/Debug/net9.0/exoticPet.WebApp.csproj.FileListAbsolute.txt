@@ -159,3 +159,4 @@ C:\Users\etienne\exoticPet2\exoticPet.WebApp\obj\Debug\net9.0\refint\exoticPet.W
 C:\Users\etienne\exoticPet2\exoticPet.WebApp\obj\Debug\net9.0\exoticPet.WebApp.pdb
 C:\Users\etienne\exoticPet2\exoticPet.WebApp\obj\Debug\net9.0\exoticPet.WebApp.genruntimeconfig.cache
 C:\Users\etienne\exoticPet2\exoticPet.WebApp\obj\Debug\net9.0\ref\exoticPet.WebApp.dll
+C:\Users\etienne\exoticPet2\exoticPet.WebApp\obj\Debug\net9.0\compressed\4iwsilsub6-ogcpidtr7j.gz

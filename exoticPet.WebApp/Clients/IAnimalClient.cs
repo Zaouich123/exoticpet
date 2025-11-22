@@ -4,5 +4,5 @@ public interface IAnimalClient
 {
     Task<List<Animal>> GetAnimalsAsync();
     Task<Animal> CreateAnimalAsync(Animal animal);
-    Task<bool> PurchaseAnimalAsync(int animalId);
+    Task<bool> PurchaseAnimalAsync(int animalId, PurchaseRequest request);
 }

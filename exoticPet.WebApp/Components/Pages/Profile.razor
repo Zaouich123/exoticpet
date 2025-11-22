@@ -1,0 +1,74 @@
+@page "/profile"
+@attribute [Authorize]
+@inject IProfileClient ProfileClient
+
+<PageTitle>Mon profil</PageTitle>
+
+<div class="page-wrapper fade-in">
+    <div class="page-header glass">
+        <div>
+            <h3>Mon profil</h3>
+            <p class="text-muted mb-0">Vos informations et dernières commandes</p>
+        </div>
+    </div>
+
+    @if (profile == null)
+    {
+        <p>Chargement...</p>
+    }
+    else
+    {
+        <div class="card mb-4 card-soft fade-in">
+            <div class="card-body">
+                <h5 class="card-title">@profile.Username</h5>
+                <p class="card-text">@profile.Email</p>
+            </div>
+        </div>
+
+        <h5 class="mb-3">Mes commandes</h5>
+        @if (profile.Purchases == null || !profile.Purchases.Any())
+        {
+            <p>Aucune commande.</p>
+        }
+        else
+        {
+            <div class="list-group fade-in">
+                @foreach (var purchase in profile.Purchases)
+                {
+                    <div class="list-group-item list-group-item-action card-soft mb-2 rounded-3">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <strong>@purchase.Animal.Name</strong> (@purchase.Animal.Species) - @purchase.Animal.Price.ToString("0.00") €
+                                <div class="text-muted small">@purchase.CreatedAt.ToLocalTime()</div>
+                                <div class="small">Env: @purchase.Animal.Environment</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="small fw-bold">Livraison</div>
+                                <div class="small">@purchase.FullName</div>
+                                <div class="small">@purchase.Address</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private ProfileResponse? profile;
+
+    protected override async Task OnInitializedAsync()
+    {
+        profile = await ProfileClient.GetProfileAsync();
+    }
+}
+
+<style>
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+</style>

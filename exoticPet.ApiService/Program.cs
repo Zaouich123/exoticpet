@@ -21,7 +21,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            NameClaimType = "name",
+            NameClaimType = "preferred_username",
             RoleClaimType = "role",
             ValidAudiences = new[] { "api-test", "account" }
         };
@@ -54,7 +54,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("gestionnaire", policy => policy.RequireRole("gestionnaire"));
+});
 
 // Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -121,8 +124,17 @@ app.MapPost("/api/animals", async (AppDbContext db, Animal animal) =>
 
 app.MapPost("/api/animals/{id:int}/purchase", async (AppDbContext db, int id, HttpContext ctx) =>
 {
+    var request = await ctx.Request.ReadFromJsonAsync<PurchaseRequest>();
+    if (request == null || string.IsNullOrWhiteSpace(request.FullName) || string.IsNullOrWhiteSpace(request.Address))
+    {
+        return Results.BadRequest("FullName and Address are required");
+    }
+
     // Resolve current user from token name or sub; fallback to user1 if missing
-    var userName = ctx.User.Identity?.Name ?? "user1";
+    var userName = ctx.User.FindFirst("preferred_username")?.Value
+        ?? ctx.User.Identity?.Name
+        ?? ctx.User.FindFirst("sub")?.Value
+        ?? "user1";
     var buyer = await db.Users.FirstOrDefaultAsync(u => u.Username == userName);
     if (buyer == null)
     {
@@ -136,11 +148,113 @@ app.MapPost("/api/animals/{id:int}/purchase", async (AppDbContext db, int id, Ht
     if (animal.BuyerId.HasValue) return Results.BadRequest("Animal already purchased");
 
     animal.BuyerId = buyer.Id;
+    db.Purchases.Add(new PurchaseRecord
+    {
+        AnimalId = animal.Id,
+        BuyerId = buyer.Id,
+        FullName = request.FullName,
+        Address = request.Address,
+        CreatedAt = DateTime.UtcNow
+    });
     await db.SaveChangesAsync();
     return Results.Ok(new { success = true });
 })
 .RequireAuthorization()
 .WithName("PurchaseAnimal")
+.WithOpenApi();
+
+app.MapGet("/api/profile", async (AppDbContext db, HttpContext ctx) =>
+{
+    var userName = ctx.User.Identity?.Name ?? "user1";
+    var buyer = await db.Users.FirstOrDefaultAsync(u => u.Username == userName);
+    if (buyer == null)
+    {
+        return Results.NotFound("User not found");
+    }
+
+    var purchases = await db.Purchases
+        .Where(p => p.BuyerId == buyer.Id)
+        .Include(p => p.Animal)
+            .ThenInclude(a => a.Environment)
+        .OrderByDescending(p => p.CreatedAt)
+        .Select(p => new
+        {
+            p.Id,
+            p.CreatedAt,
+            p.FullName,
+            p.Address,
+            Animal = new
+            {
+                p.Animal.Id,
+                p.Animal.Name,
+                p.Animal.Species,
+                p.Animal.Price,
+                Environment = p.Animal.Environment != null ? p.Animal.Environment.Name : null
+            }
+        })
+        .ToListAsync();
+
+    return Results.Ok(new
+    {
+        Username = buyer.Username,
+        Email = buyer.Email,
+        Purchases = purchases
+    });
+})
+.RequireAuthorization()
+.WithName("GetProfile")
+.WithOpenApi();
+
+app.MapGet("/api/admin/purchases", async (AppDbContext db) =>
+    await db.Purchases
+        .Include(p => p.Animal).ThenInclude(a => a.Environment)
+        .Include(p => p.Buyer)
+        .OrderByDescending(p => p.CreatedAt)
+        .Select(p => new
+        {
+            p.Id,
+            p.CreatedAt,
+            p.FullName,
+            p.Address,
+            Animal = new
+            {
+                p.Animal.Id,
+                p.Animal.Name,
+                p.Animal.Species,
+                p.Animal.Price,
+                Environment = p.Animal.Environment != null ? p.Animal.Environment.Name : null
+            },
+            Buyer = new
+            {
+                p.Buyer.Id,
+                p.Buyer.Username,
+                p.Buyer.Email
+            }
+        })
+        .ToListAsync())
+.RequireAuthorization("gestionnaire")
+.WithName("GetAllPurchases")
+.WithOpenApi();
+
+app.MapPost("/api/admin/purchases/{id:int}/cancel", async (AppDbContext db, int id) =>
+{
+    var purchase = await db.Purchases
+        .Include(p => p.Animal)
+        .FirstOrDefaultAsync(p => p.Id == id);
+    if (purchase == null) return Results.NotFound();
+
+    // make animal available again
+    var animal = purchase.Animal;
+    if (animal != null)
+    {
+        animal.BuyerId = null;
+    }
+    db.Purchases.Remove(purchase);
+    await db.SaveChangesAsync();
+    return Results.Ok(new { success = true });
+})
+.RequireAuthorization("gestionnaire")
+.WithName("CancelPurchase")
 .WithOpenApi();
 
 app.Run();

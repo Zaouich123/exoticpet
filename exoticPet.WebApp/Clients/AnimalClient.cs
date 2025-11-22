@@ -49,12 +49,12 @@ public class AnimalClient : IAnimalClient
         }
     }
 
-    public async Task<bool> PurchaseAnimalAsync(int animalId)
+    public async Task<bool> PurchaseAnimalAsync(int animalId, PurchaseRequest request)
     {
         try
         {
             Console.WriteLine($"[v0] Attempting to purchase animal {animalId}");
-            var response = await _httpClient.PostAsync($"/api/animals/{animalId}/purchase", content: null);
+            var response = await _httpClient.PostAsJsonAsync($"/api/animals/{animalId}/purchase", request);
             response.EnsureSuccessStatusCode();
             return true;
         }
