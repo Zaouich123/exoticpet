@@ -91,6 +91,12 @@ builder.Services.AddAuthentication(options =>
             
             if (context.Principal?.Identity is System.Security.Claims.ClaimsIdentity identity)
             {
+                var preferred = identity.FindFirst("preferred_username")?.Value;
+                if (!string.IsNullOrEmpty(preferred))
+                {
+                    identity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, preferred));
+                }
+
                 var realmAccessClaim = identity.FindFirst("realm_access");
                 if (realmAccessClaim != null)
                 {
@@ -113,13 +119,25 @@ builder.Services.AddAuthentication(options =>
                 }
             }
             
-            return Task.CompletedTask;
+                return Task.CompletedTask;
         },
         OnRemoteFailure = context =>
         {
             Console.WriteLine($"[v0] Remote failure: {context.Failure?.Message}");
             context.Response.Redirect($"/error?message={Uri.EscapeDataString(context.Failure?.Message ?? "Unknown error")}");
             context.HandleResponse();
+            return Task.CompletedTask;
+        },
+        OnRedirectToIdentityProviderForSignOut = context =>
+        {
+            // Ensure Keycloak session is ended; send id_token_hint and post_logout_redirect_uri
+            var idToken = context.HttpContext.GetTokenAsync("id_token").GetAwaiter().GetResult();
+            if (!string.IsNullOrEmpty(idToken))
+            {
+                context.ProtocolMessage.IdTokenHint = idToken;
+            }
+            var postLogout = $"{context.Request.Scheme}://{context.Request.Host}/";
+            context.ProtocolMessage.PostLogoutRedirectUri = postLogout;
             return Task.CompletedTask;
         }
     };

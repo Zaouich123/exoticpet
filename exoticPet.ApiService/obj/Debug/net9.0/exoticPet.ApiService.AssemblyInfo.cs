@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exoticPet.ApiService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad6392efa7813567821689c20cdb9eecaef2381e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf8e63bba1692c2a525417dc3aab0cbb540eb2d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("exoticPet.ApiService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exoticPet.ApiService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

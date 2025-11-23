@@ -2,77 +2,74 @@
 
 <PageTitle>Home - Exotic Pet Manager</PageTitle>
 
-<div class="hero-section">
-    <div class="container">
-        <div class="row align-items-center min-vh-100">
-            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
-                <h1 class="hero-title mb-4">Exotic Pet Manager</h1>
-                <p class="hero-subtitle mb-5">
-                    Professional management system for your exotic animal collection. 
-                    Track species, monitor health, and maintain comprehensive records.
-                </p>
-                
-                <AuthorizeView>
-                    <Authorized>
-                        <div class="welcome-card">
-                            <h3 class="mb-3">Welcome back, @context.User.Identity?.Name!</h3>
-                            <p class="text-muted mb-4">Ready to manage your exotic animals?</p>
-                            <a href="/animals" class="btn btn-primary btn-lg px-5">
-                                View Animals
-                            </a>
-                        </div>
-                    </Authorized>
-                    <NotAuthorized>
-                        <div class="login-section">
-                            <h3 class="mb-4">Get Started</h3>
-                            <p class="text-muted mb-4">Login to access the management system</p>
-                            
-                            <a href="/authentication/login" class="btn btn-primary btn-lg px-5 mb-4">
-                                Login with Keycloak
-                            </a>
-                            
-                            <div class="demo-users-card">
-                                <h5 class="mb-3">Demo Users Available</h5>
-                                <div class="user-info">
-                                    <div class="user-badge admin-badge">
-                                        <strong>Admin User</strong>
-                                        <span class="user-details">Username: user1 | Password: pass</span>
-                                        <span class="role-tag">Role: gestionnaire</span>
-                                    </div>
-                                    <div class="user-badge user-badge-normal">
-                                        <strong>Regular User</strong>
-                                        <span class="user-details">Username: user2 | Password: pass</span>
-                                        <span class="role-tag">Role: viewer</span>
-                                    </div>
+<div class="hero-section hero-full">
+    <div class="row align-items-center min-vh-100 gx-0">
+        <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+            <h1 class="hero-title mb-4">Un chat c'est bien mais un tigre c'est mieux</h1>
+            <p class="hero-subtitle mb-5">
+                Découvrez et achetez des animaux exotiques d’exception : gestion claire, profils détaillés, expérience ultra rapide.
+            </p>
+            
+            <AuthorizeView>
+                <Authorized>
+                    <div class="welcome-card">
+                        <h3 class="mb-3">Welcome back, @context.User.Identity?.Name!</h3>
+                        <p class="text-muted mb-4">Ready to manage your exotic animals?</p>
+                        <a href="/animals" class="btn btn-primary btn-lg px-5">
+                            View Animals
+                        </a>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="login-section">
+                        <h3 class="mb-4">Get Started</h3>
+                        <p class="text-muted mb-4">Login to access the management system</p>
+                        
+                        <a href="/authentication/login" class="btn btn-primary btn-lg px-5 mb-4">
+                            Login with Keycloak
+                        </a>
+                        
+                        <div class="demo-users-card">
+                            <h5 class="mb-3">Demo Users Available</h5>
+                            <div class="user-info">
+                                <div class="user-badge admin-badge">
+                                    <strong>Admin User</strong>
+                                    <span class="user-details">Username: user1 | Password: pass</span>
+                                    <span class="role-tag">Role: gestionnaire</span>
+                                </div>
+                                <div class="user-badge user-badge-normal">
+                                    <strong>Regular User</strong>
+                                    <span class="user-details">Username: user2 | Password: pass</span>
+                                    <span class="role-tag">Role: viewer</span>
                                 </div>
                             </div>
                         </div>
-                    </NotAuthorized>
-                </AuthorizeView>
-            </div>
-            
-            <div class="col-lg-6">
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🦎</div>
-                        <h4>Species Tracking</h4>
-                        <p>Manage multiple exotic species with detailed profiles</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h4>Data Management</h4>
-                        <p>Comprehensive database with powerful search capabilities</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h4>Secure Access</h4>
-                        <p>Role-based authentication with Keycloak integration</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h4>Fast & Reliable</h4>
-                        <p>Built with .NET Aspire for optimal performance</p>
-                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🐾</div>
+                    <h4>Species Tracking</h4>
+                    <p>Manage multiple exotic species with detailed profiles</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Data Management</h4>
+                    <p>Comprehensive database with powerful search capabilities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Secure Access</h4>
+                    <p>Role-based authentication with Keycloak integration</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Fast & Reliable</h4>
+                    <p>Built with .NET Aspire for optimal performance</p>
                 </div>
             </div>
         </div>
